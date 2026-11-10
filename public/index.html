@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Melhores de 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: faixa de troféu no topo; nome do eleitor; uma seção por prêmio com grade de figurinhas para tocar; barra fixa de envio */
+:root{
+  --bg:#edf1ea; --surface:#ffffff; --surface-2:#f5f8f3; --ink:#16211a; --muted:#5a6a5e; --line:#d3ddd1;
+  --field:#1d6a3a; --field-2:#185c32; --gold:#c9a019; --gold-ink:#1a1400; --chalk:rgba(255,255,255,.5);
+  --danger:#b3261e; --wa:#1a8f4c;
+  --f-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --f-body:"Barlow","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1611; --surface:#17211a; --surface-2:#1c281f; --ink:#e6eee7; --muted:#9bab9e; --line:#2b3a2f;
+  --field:#1f5c35; --field-2:#1a4f2e; --gold:#e2bd3a; --chalk:rgba(255,255,255,.35); --danger:#ff8a80; --wa:#2fb36a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1611; --surface:#17211a; --surface-2:#1c281f; --ink:#e6eee7; --muted:#9bab9e; --line:#2b3a2f;
+  --field:#1f5c35; --field-2:#1a4f2e; --gold:#e2bd3a; --chalk:rgba(255,255,255,.35); --danger:#ff8a80; --wa:#2fb36a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.45}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--field)}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{background:radial-gradient(circle at 85% 30%,rgba(201,160,25,.35),transparent 45%),repeating-linear-gradient(90deg,var(--field) 0 64px,var(--field-2) 64px 128px);color:#fff}
+.top .wrap{padding-block:22px 20px}
+.top small{font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.75rem;opacity:.9}
+.top h1{font-family:var(--f-display);font-weight:900;font-size:clamp(2.4rem,10vw,3.6rem);line-height:.9;margin:4px 0 8px;text-transform:uppercase}
+.top h1 span{color:#ffd84d}
+.top p{margin:0;max-width:60ch;opacity:.92}
+main{padding-block:16px 140px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:8px}
+.box label{display:block;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.box input{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--surface-2);font-size:1.05rem}
+.box input.err{border:2px solid var(--danger)}
+section.cat{margin-top:22px}
+.ch{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px}
+.ch h2{font-family:var(--f-display);font-weight:900;font-size:1.6rem;text-transform:uppercase;margin:0;letter-spacing:.02em}
+.ch .cnt{font-weight:700;font-size:.85rem;color:var(--muted);white-space:nowrap}
+.ch .cnt.ok{color:var(--field)}
+.cat.err .ch .cnt{color:var(--danger)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.cand{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 6px 8px;border:2px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;text-align:center;min-width:0}
+.cand .ph{width:100%;aspect-ratio:3/4;height:auto;border-radius:8px;object-fit:cover;object-position:center top;background:var(--surface-2);display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:1.6rem;color:var(--muted);border:2px solid var(--line)}
+.cand b{font-size:.86rem;line-height:1.15;overflow-wrap:anywhere}
+.cand[aria-pressed="true"]{border-color:var(--gold);background:linear-gradient(180deg,rgba(201,160,25,.18),var(--surface))}
+.cand[aria-pressed="true"] .ph{border-color:var(--gold)}
+.cand[aria-pressed="true"]::after{content:"✓";position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--gold-ink);font-weight:900;display:grid;place-items:center;font-size:.85rem}
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -6px 20px rgba(0,0,0,.08)}
+.dock .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-block:10px}
+.dock .st{font-size:.88rem;color:var(--muted);line-height:1.3;min-width:0}
+.dock .st b{color:var(--ink)}
+.btn{border:0;border-radius:10px;padding:13px 16px;font-weight:700;text-decoration:none;cursor:pointer;white-space:nowrap;background:var(--wa);color:#fff;display:inline-flex}
+.btn.off{opacity:.55}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(90px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;z-index:30;max-width:calc(100% - 32px)}
+.btn:disabled{opacity:.55;cursor:default}
+.done{background:var(--surface);border:2px solid var(--gold);border-radius:12px;padding:16px;margin-top:16px;text-align:center}
+.done h2{font-family:var(--f-display);font-weight:900;text-transform:uppercase;margin:0 0 4px}
+</style>
+</head><body>
+
+<header class="top"><div class="wrap">
+  <small>Craques de Aldeia</small>
+  <h1>Melhores de <span>2026</span></h1>
+  <p>Escolha os destaques do ano. Concorrem só os mensalistas. Goleiro disputa só a categoria de goleiro. No fim, toque em Enviar voto. Dá para mudar o voto depois, no mesmo celular.</p>
+</div></header>
+
+<main class="wrap">
+  <div class="box"><label for="eleitor">Seu nome</label><input id="eleitor" autocomplete="name" maxlength="40" placeholder="Ex.: Nilton"></div>
+  <div id="cats"></div>
+  <div id="fim"></div>
+</main>
+
+<div class="dock"><div class="wrap"><span class="st" id="st"></span><button class="btn" id="wa" type="button">Enviar voto</button></div></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+let P=[],CATS=[];const V={};
+const KEY='eleicao-2026';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ini=n=>n.split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+const nomeEl=document.getElementById('eleitor');
+let DISP='';try{DISP=localStorage.getItem('eleicao-disp')||''}catch{}
+if(!DISP){DISP=(crypto.randomUUID?crypto.randomUUID():String(Math.random()).slice(2)+Date.now());try{localStorage.setItem('eleicao-disp',DISP)}catch{}}
+function guarda(){try{localStorage.setItem(KEY,JSON.stringify({nome:nomeEl.value,v:V}))}catch{}}
+function render(){
+  document.getElementById('cats').innerHTML=CATS.map(c=>{const L=P.filter(p=>c.g.includes(p.g));
+    return `<section class="cat" id="c-${c.k}"><div class="ch"><h2>${esc(c.t)}</h2><span class="cnt${V[c.k].length===c.n?' ok':''}">${V[c.k].length} de ${c.n}</span></div>
+     <div class="grid">${L.map(p=>`<button type="button" class="cand" data-c="${c.k}" data-n="${esc(p.n)}" aria-pressed="${V[c.k].includes(p.n)}">${p.f?`<img class="ph" src="${p.f}" alt="" loading="lazy">`:`<span class="ph">${esc(ini(p.n))}</span>`}<b>${esc(p.n)}</b></button>`).join('')}</div></section>`}).join('');
+  status();
+}
+const falta=()=>CATS.filter(c=>V[c.k].length!==c.n);
+function status(){const f=falta(),nome=nomeEl.value.trim(),ok=!f.length&&nome;
+  document.getElementById('st').innerHTML=!nome?'<b>Escreva seu nome</b> lá em cima':f.length?`<b>Falta votar:</b><br>${f.map(c=>esc(c.t.replace(/^\d /,''))).join(', ')}`:'<b>Tudo pronto!</b><br>Toque em Enviar voto';
+  document.getElementById('wa').classList.toggle('off',!ok)}
+document.addEventListener('click',e=>{const b=e.target.closest('.cand');if(!b)return;const c=CATS.find(x=>x.k===b.dataset.c),n=b.dataset.n,a=V[c.k];
+  if(a.includes(n))V[c.k]=a.filter(x=>x!==n);
+  else if(c.n===1)V[c.k]=[n];
+  else if(a.length<c.n)a.push(n);
+  else{toast(`Já marcou ${c.n}. Toque num marcado para trocar.`);return}
+  const sec=document.getElementById('c-'+c.k);
+  sec.querySelectorAll('.cand').forEach(x=>x.setAttribute('aria-pressed',V[c.k].includes(x.dataset.n)));
+  const cnt=sec.querySelector('.cnt');cnt.textContent=`${V[c.k].length} de ${c.n}`;cnt.classList.toggle('ok',V[c.k].length===c.n);sec.classList.remove('err');
+  status();guarda()});
+nomeEl.addEventListener('input',()=>{nomeEl.classList.remove('err');status();guarda()});
+const btn=document.getElementById('wa');
+btn.addEventListener('click',async()=>{status();
+  if(!nomeEl.value.trim()){nomeEl.classList.add('err');nomeEl.focus();window.scrollTo({top:0,behavior:'smooth'});toast('Escreva seu nome antes de enviar.');return}
+  const f=falta();if(f.length){const s=document.getElementById('c-'+f[0].k);s.classList.add('err');s.scrollIntoView({behavior:'smooth',block:'start'});toast('Falta: '+f[0].t);return}
+  btn.disabled=true;btn.textContent='Enviando…';
+  try{const r=await fetch('/api/votar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nomeEl.value.trim(),disp:DISP,votos:V})});
+    const j=await r.json().catch(()=>({erro:'Erro no servidor.'}));
+    if(!r.ok)throw new Error(j.erro||'Não deu para enviar.');
+    document.getElementById('fim').innerHTML=`<div class="done"><h2>${j.atualizado?'Voto atualizado!':'Voto registrado!'}</h2>Valeu, ${esc(nomeEl.value.trim())}. O resultado sai no grupo. ⚽</div>`;
+    document.getElementById('fim').scrollIntoView({behavior:'smooth'});toast(j.atualizado?'Voto atualizado!':'Voto registrado!');
+  }catch(err){toast(err.message)}
+  finally{btn.disabled=false;btn.textContent='Enviar voto'}});
+let tt;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,3200)}
+fetch('/api/candidatos').then(r=>r.json()).then(d=>{P=d.candidatos;CATS=d.categorias;CATS.forEach(c=>V[c.k]=[]);
+  try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s){nomeEl.value=s.nome||'';CATS.forEach(c=>{if(Array.isArray(s.v&&s.v[c.k]))V[c.k]=s.v[c.k].filter(n=>P.some(p=>p.n===n&&c.g.includes(p.g))).slice(0,c.n)})}}catch{}
+  render()}).catch(()=>{document.getElementById('cats').innerHTML='<p>Não carregou a lista. Recarregue a página.</p>'});
+</script>
+</body></html>
